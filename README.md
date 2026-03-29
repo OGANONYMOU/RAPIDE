@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Rapide — Plateforme de Livraison Premium au Bénin
 
 > Plateforme de livraison moderne, premium et multilingue pour le Bénin (French-first, English support).
@@ -285,3 +286,6 @@ cd frontend && npm start
 ---
 
 *Built with ❤️ for the Bénin Republic — Rapide Team*
+=======
+# RAPIDE
+>>>>>>> 9de0693c24806e6f38b2bd62257f9a51bda41f7d
