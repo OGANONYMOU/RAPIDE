@@ -1,0 +1,27 @@
+{
+  "name": "rapide",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Rapide - Premium Delivery Platform for Benin Republic",
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "scripts": {
+    "postinstall": "npm run db:generate",
+    "infra:up": "docker compose up -d",
+    "infra:down": "docker compose down",
+    "dev": "npm run infra:up && npm run dev:app",
+    "dev:app": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "npm run dev --workspace=backend",
+    "dev:frontend": "npm run dev --workspace=frontend",
+    "build": "npm run build --workspace=backend && npm run build --workspace=frontend",
+    "db:generate": "npm run db:generate --workspace=backend",
+    "db:migrate": "npm run db:migrate --workspace=backend",
+    "db:seed": "npm run db:seed --workspace=backend",
+    "setup": "npm install && npm run db:generate && npm run db:migrate && npm run db:seed"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
