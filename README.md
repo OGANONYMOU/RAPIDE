@@ -1,134 +1,139 @@
-<<<<<<< HEAD
-# Rapide — Plateforme de Livraison Premium au Bénin
+<div align="center">
 
-> Plateforme de livraison moderne, premium et multilingue pour le Bénin (French-first, English support).
-> Stack: **Next.js 14 · Node.js + Express · PostgreSQL · Prisma · Socket.IO**
+<img src="https://capsule-render.vercel.app/api?type=waving&color=FF6B35&height=200&section=header&text=RAPIDE&fontSize=80&fontColor=ffffff&fontAlignY=38&desc=Plateforme%20de%20Livraison%20Premium%20au%20Bénin&descAlignY=60&descSize=18" width="100%" />
+
+[![Next.js](https://img.shields.io/badge/Next.js%2014-black?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/)
+[![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-336791?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Socket.IO](https://img.shields.io/badge/Socket.IO-010101?style=for-the-badge&logo=socket.io&logoColor=white)](https://socket.io/)
+[![Prisma](https://img.shields.io/badge/Prisma-2D3748?style=for-the-badge&logo=prisma&logoColor=white)](https://www.prisma.io/)
+
+**Modern · Premium · Multilingual**
+
+*La plateforme de livraison de référence pour le Bénin — French-first, English supported*
+
+</div>
 
 ---
 
-## 📦 Architecture
+## Overview
+
+Rapide is a full-featured, production-ready delivery platform built specifically for the Beninese market. It connects customers, delivery drivers, and businesses in real time — with a premium mobile-first UI, bilingual support (FR/EN), and a complete backend powering everything from dynamic pricing to wallet transactions.
+
+**Core stack:** Next.js 14 · Node.js + Express · PostgreSQL 16 · Prisma ORM · Socket.IO · Redis · TypeScript throughout
+
+---
+
+## Architecture
 
 ```
 rapide/
-├── backend/                  # Node.js + Express API
+├── backend/                        # Node.js + Express API
 │   ├── prisma/
-│   │   ├── schema.prisma     # Full database schema (20+ models)
-│   │   └── seed.ts           # Initial data seed
+│   │   ├── schema.prisma           # 20+ model schema
+│   │   └── seed.ts                 # Seed data
 │   └── src/
-│       ├── config/           # DB, JWT, Logger
-│       ├── middleware/        # Auth, Error handler
-│       ├── modules/          # Feature modules
-│       │   ├── auth/         # Register, Login, JWT refresh
-│       │   ├── orders/       # Full order lifecycle
-│       │   ├── drivers/      # Driver profile, docs, earnings
-│       │   ├── admin/        # Full admin panel API
-│       │   ├── payments/     # Wallet, transactions
-│       │   ├── pricing/      # Dynamic pricing engine
-│       │   ├── tracking/     # Real-time GPS tracking
-│       │   ├── notifications/# Localized notifications
-│       │   ├── support/      # Tickets & messages
-│       │   ├── businesses/   # Vendor management
-│       │   └── users/        # Saved addresses
+│       ├── config/                 # DB, JWT, Logger
+│       ├── middleware/             # Auth, Error handler
+│       ├── modules/
+│       │   ├── auth/               # Register · Login · JWT refresh
+│       │   ├── orders/             # Full order lifecycle
+│       │   ├── drivers/            # Profiles · Documents · Earnings
+│       │   ├── admin/              # Full admin panel API
+│       │   ├── payments/           # Wallet · Transactions
+│       │   ├── pricing/            # Dynamic pricing engine
+│       │   ├── tracking/           # Real-time GPS
+│       │   ├── notifications/      # Bilingual push notifications
+│       │   ├── support/            # Tickets & messages
+│       │   ├── businesses/         # Vendor management
+│       │   └── users/              # Saved addresses
 │       └── services/
-│           ├── socket.service.ts   # Socket.IO real-time
+│           ├── socket.service.ts   # Socket.IO real-time layer
 │           ├── pricing.service.ts  # Pricing engine
 │           └── upload.service.ts   # File uploads
 │
-├── frontend/                 # Next.js 14 App Router
+├── frontend/                       # Next.js 14 App Router
 │   └── src/
 │       ├── app/
-│       │   ├── page.tsx                    # Marketing landing
-│       │   ├── (auth)/login/               # Login page
-│       │   ├── (auth)/register/            # Registration (customer/driver)
-│       │   ├── (customer)/dashboard/       # Customer app
-│       │   │   ├── page.tsx                # Dashboard home
-│       │   │   ├── orders/new/             # New order flow (4 steps)
-│       │   │   ├── tracking/[orderId]/     # Live tracking
-│       │   │   └── wallet/                 # Wallet & transactions
-│       │   ├── (driver)/driver/dashboard/  # Driver app
-│       │   └── (admin)/admin/              # Admin dashboard
-│       │       ├── page.tsx                # Stats + charts
-│       │       ├── drivers/                # Approve/reject drivers
-│       │       ├── orders/                 # Order management
-│       │       └── pricing/               # Pricing configuration
+│       │   ├── page.tsx                       # Marketing landing
+│       │   ├── (auth)/login/                  # Login
+│       │   ├── (auth)/register/               # Registration (customer / driver)
+│       │   ├── (customer)/dashboard/          # Customer app
+│       │   │   ├── orders/new/                # 4-step order flow
+│       │   │   ├── tracking/[orderId]/        # Live GPS tracking
+│       │   │   └── wallet/                    # Wallet & transactions
+│       │   ├── (driver)/driver/dashboard/     # Driver app
+│       │   └── (admin)/admin/                 # Admin dashboard
+│       │       ├── drivers/                   # Approve / reject
+│       │       ├── orders/                    # Order management
+│       │       └── pricing/                   # Pricing config
 │       ├── lib/
-│       │   ├── api.ts          # Typed API client (Axios + auto-refresh)
-│       │   └── utils.ts        # Helpers (currency, date, status colors)
+│       │   ├── api.ts              # Typed Axios client + auto token refresh
+│       │   └── utils.ts            # Currency · Date · Status helpers
 │       ├── stores/
-│       │   ├── auth.store.ts   # Zustand auth (persisted)
-│       │   └── lang.store.ts   # Language switching FR/EN
+│       │   ├── auth.store.ts       # Zustand auth (persisted)
+│       │   └── lang.store.ts       # FR/EN language switcher
 │       ├── hooks/
-│       │   └── useSocket.ts    # Socket.IO singleton hook
+│       │   └── useSocket.ts        # Socket.IO singleton hook
 │       └── locales/
-│           ├── fr/common.json  # French translations (full)
-│           └── en/common.json  # English translations (full)
+│           ├── fr/common.json      # French translations (complete)
+│           └── en/common.json      # English translations (complete)
 │
-├── docker-compose.yml        # PostgreSQL + Redis
-└── package.json              # npm workspaces monorepo
+├── docker-compose.yml              # PostgreSQL + Redis
+└── package.json                    # npm workspaces monorepo
 ```
 
 ---
 
-## 🚀 Getting Started (Local Development)
+## Getting Started
 
 ### Prerequisites
-- **Node.js** 18+
-- **Docker Desktop** (for PostgreSQL + Redis)
-- **Git**
 
----
+| Tool | Version |
+|------|---------|
+| Node.js | 18+ |
+| Docker Desktop | Latest |
+| Git | Any recent |
 
-### 1. Clone and install
+### 1 — Clone and install
 
 ```bash
-git clone https://github.com/your-org/rapide.git
-cd rapide
+git clone https://github.com/OGANONYMOU/RAPIDE.git
+cd RAPIDE
 npm install
 ```
 
----
-
-### 2. Start databases
+### 2 — Start databases
 
 ```bash
 docker compose up -d
 ```
 
-This starts:
-- PostgreSQL on `localhost:5432`
-- Redis on `localhost:6379`
+Starts **PostgreSQL** on `localhost:5432` and **Redis** on `localhost:6379`.
 
----
-
-### 3. Configure environment variables
+### 3 — Configure environment
 
 ```bash
-# Backend
 cp backend/.env.example backend/.env
-
-# Frontend
 cp frontend/.env.example frontend/.env.local
 ```
 
-Edit `backend/.env`:
+**`backend/.env`**
 ```env
 DATABASE_URL="postgresql://rapide_user:rapide_password@localhost:5432/rapide"
-JWT_SECRET=change_this_to_a_strong_secret_in_production
-JWT_REFRESH_SECRET=change_this_too
+JWT_SECRET=your_strong_secret_here
+JWT_REFRESH_SECRET=another_strong_secret_here
 ```
 
-Edit `frontend/.env.local`:
+**`frontend/.env.local`**
 ```env
 BACKEND_URL=http://localhost:4000
 NEXT_PUBLIC_SOCKET_URL=http://localhost:4000
 NEXT_PUBLIC_MAPBOX_TOKEN=your_mapbox_token
 ```
 
-`BACKEND_URL` lets the Next.js app proxy API requests to the backend, so the frontend can use the shared `/api/*` path by default while both apps still run from the repo root with one command.
-
----
-
-### 4. Run database migrations and seed
+### 4 — Migrate and seed
 
 ```bash
 cd backend
@@ -137,155 +142,163 @@ npx prisma migrate dev --name init
 npx ts-node prisma/seed.ts
 ```
 
----
-
-### 5. Start development servers
+### 5 — Run
 
 ```bash
-# From root — starts both frontend + backend
+# Both frontend + backend from root
 npm run dev
-```
 
-Or individually:
-```bash
-# Backend only
+# Individually
 npm run dev:backend
-
-# Frontend only
 npm run dev:frontend
 ```
 
----
-
-### 6. Access the app
+### 6 — Access
 
 | Service | URL |
-|---|---|
-| **Frontend** | http://localhost:3000 |
-| **Backend API** | http://localhost:4000 |
-| **API Health** | http://localhost:4000/health |
-| **Prisma Studio** | `cd backend && npx prisma studio` |
+|---------|-----|
+| Frontend | http://localhost:3000 |
+| Backend API | http://localhost:4000 |
+| API Health | http://localhost:4000/health |
+| Prisma Studio | `cd backend && npx prisma studio` |
 
----
-
-### Demo Accounts (from seed)
+### Demo Accounts
 
 | Role | Email | Password |
-|---|---|---|
-| **Super Admin** | admin@rapide.bj | Admin@Rapide2024 |
-| **Customer** | client@example.com | Customer@123 |
-| **Driver** | driver@example.com | Driver@123 |
+|------|-------|----------|
+| Super Admin | admin@rapide.bj | Admin@Rapide2024 |
+| Customer | client@example.com | Customer@123 |
+| Driver | driver@example.com | Driver@123 |
 
 ---
 
-## ✅ Features Implemented
+## Features
 
-### Platform
-- [x] French-first multilingual (FR/EN switching in-app)
-- [x] Mobile-first responsive design (premium UI)
-- [x] JWT auth with auto-refresh tokens
-- [x] Role-based access (Customer, Driver, Admin, Super Admin)
-- [x] Real-time Socket.IO (live tracking, order updates, chat)
+<details>
+<summary><strong>Platform</strong></summary>
 
-### Customer App
-- [x] Registration & login
-- [x] 4-step order creation (addresses → package → options → payment)
-- [x] Dynamic price estimation
-- [x] Order history & status tracking
-- [x] Live GPS tracking page
-- [x] Wallet (top-up, balance, transactions)
-- [x] Order chat with driver
-- [x] Delivery ratings
-- [x] Promo code support
-- [x] Saved addresses
+- French-first multilingual UI with in-app FR/EN switching
+- Mobile-first premium responsive design
+- JWT authentication with silent auto-refresh
+- Role-based access control (Customer · Driver · Admin · Super Admin)
+- Real-time Socket.IO for tracking, updates, and in-app chat
 
-### Driver App
-- [x] Registration with vehicle type
-- [x] Document upload (ID, license, insurance)
-- [x] Admin approval flow (not auto-activated)
-- [x] Go online/offline toggle (Socket.IO)
-- [x] Real-time new order notifications
-- [x] Accept/decline orders
-- [x] Earnings dashboard (daily/weekly/monthly)
-- [x] Delivery history
-- [x] Wallet with earnings auto-credit
+</details>
 
-### Admin Dashboard
-- [x] Stats overview (users, drivers, orders, revenue)
-- [x] Revenue + order charts (Recharts)
-- [x] Driver management with approve/reject
-- [x] Order management with filtering
-- [x] Pricing configuration per vehicle type
-- [x] Promo code management
-- [x] Support ticket management
-- [x] Content management (banners, FAQs)
-- [x] Analytics (period-based)
+<details>
+<summary><strong>Customer App</strong></summary>
 
-### Backend
-- [x] 20+ Prisma models (complete schema)
-- [x] Dynamic pricing engine (distance + size + vehicle + urgency + surge)
-- [x] Haversine distance calculation
-- [x] Wallet system (top-up, debit, credit, earnings)
-- [x] Order lifecycle management
-- [x] Proof of delivery (photo upload)
-- [x] Notification system (bilingual)
-- [x] Support ticket system
-- [x] Business/vendor management
-- [x] Rate limiting, CORS, Helmet security
+- 4-step order creation (addresses → package → options → payment)
+- Dynamic price estimation before confirming
+- Live GPS tracking page per order
+- Order history and status timeline
+- Wallet: top-up, balance, transaction history
+- In-order chat with assigned driver
+- Delivery ratings
+- Promo code support
+- Saved addresses management
+
+</details>
+
+<details>
+<summary><strong>Driver App</strong></summary>
+
+- Registration with vehicle type selection
+- Document upload (ID, license, insurance)
+- Admin approval flow before activation
+- Online/offline toggle via Socket.IO
+- Real-time new-order notifications
+- Accept / decline incoming orders
+- Earnings dashboard (daily · weekly · monthly)
+- Delivery history
+- Wallet with automatic earnings credit
+
+</details>
+
+<details>
+<summary><strong>Admin Dashboard</strong></summary>
+
+- Stats overview: users, drivers, orders, revenue
+- Revenue and order charts (Recharts)
+- Driver management with approve/reject actions
+- Order management with filtering
+- Pricing configuration per vehicle type
+- Promo code management
+- Support ticket handling
+- Content management (banners, FAQs)
+- Period-based analytics
+
+</details>
+
+<details>
+<summary><strong>Backend</strong></summary>
+
+- 20+ Prisma models (complete schema)
+- Dynamic pricing engine: distance + size + vehicle type + urgency + surge
+- Haversine distance calculation for accurate estimates
+- Wallet system: top-up, debit, credit, driver earnings auto-credit
+- Complete order lifecycle management
+- Proof of delivery (photo upload)
+- Bilingual notification system
+- Support ticket system
+- Business / vendor management
+- Rate limiting, CORS, Helmet security headers
+
+</details>
 
 ---
 
-## 🔧 Integration Checklist for Production
+## Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| Frontend | Next.js 14, TypeScript, Tailwind CSS, Zustand, React Query |
+| Backend | Node.js, Express, TypeScript, Prisma ORM |
+| Database | PostgreSQL 16 |
+| Cache | Redis |
+| Real-time | Socket.IO |
+| Auth | JWT (access + refresh tokens) |
+| Charts | Recharts |
+| Maps | Mapbox GL (configurable) |
+| File storage | Local (dev) → S3-compatible (prod) |
+
+---
+
+## Production Checklist
 
 | Feature | Status | Notes |
-|---|---|---|
-| Maps (Google Maps / Mapbox) | 🔲 Configure | Add your API key to `.env.local` |
-| Payment gateway | 🔲 Integrate | FedaPay, MTN MoMo, Moov for Benin |
-| SMS notifications | 🔲 Integrate | Twilio or local Benin SMS provider |
-| Email (SMTP) | 🔲 Configure | Set SMTP_* vars in `backend/.env` |
-| Push notifications | 🔲 Add | Firebase FCM for mobile |
-| File storage (prod) | 🔲 Migrate | Use S3 / Cloudflare R2 in production |
-| SSL / HTTPS | 🔲 Configure | Required for production |
+|---------|--------|-------|
+| Maps (Mapbox / Google Maps) | Configure | Add API key to `.env.local` |
+| Payment gateway | Integrate | FedaPay, MTN MoMo, Moov Money |
+| SMS notifications | Integrate | Twilio or local Benin SMS provider |
+| Email (SMTP) | Configure | Set `SMTP_*` vars in `backend/.env` |
+| Push notifications | Add | Firebase FCM for mobile clients |
+| File storage (prod) | Migrate | S3 / Cloudflare R2 |
+| SSL / HTTPS | Configure | Required for production deployment |
 
 ---
 
-## 🏗️ Production Deployment
+## Production Build
 
 ```bash
-# Build backend
+# Build
 cd backend && npm run build
-
-# Build frontend
 cd frontend && npm run build
 
-# Run database migrations (production)
+# Migrate (production)
 cd backend && npm run db:migrate:prod
 
-# Start services
+# Start
 cd backend && npm start
 cd frontend && npm start
 ```
 
 ---
 
-## 💡 Tech Stack
+<div align="center">
 
-| Layer | Technology |
-|---|---|
-| Frontend | Next.js 14, TypeScript, Tailwind CSS, Zustand, React Query |
-| Backend | Node.js, Express, TypeScript, Prisma |
-| Database | PostgreSQL 16 |
-| Real-time | Socket.IO |
-| Auth | JWT (access + refresh tokens) |
-| Charts | Recharts |
-| UI | Custom design system (no external component lib dependency) |
-| Maps | Mapbox GL (configurable) |
-| File storage | Local (dev) → S3 compatible (prod) |
-| Cache/Sessions | Redis |
+Built with care for the **Bénin Republic**
 
----
+*Rapide Team — Africa's delivery infrastructure, one order at a time.*
 
-*Built with ❤️ for the Bénin Republic — Rapide Team*
-=======
-# RAPIDE
->>>>>>> 9de0693c24806e6f38b2bd62257f9a51bda41f7d
+</div>
